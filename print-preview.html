@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Print Preview – House Hero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #e8e0d4;
+      font-family: "Fraunces", Georgia, serif;
+      padding: 2rem;
+    }
+
+    .print-page {
+      background: white;
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+
+    /* Header */
+    .print-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      background: #7a3b10;
+      padding: 1.25rem 2rem;
+      color: white;
+    }
+
+    .print-header__logo-wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .print-logo {
+      max-height: 70px;
+      max-width: 200px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .print-logo-fallback {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: white;
+    }
+
+    .print-logo-h {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      color: #f4c28a;
+    }
+
+    .print-logo-name {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1;
+    }
+
+    .print-logo-sub {
+      font-family: "Space Mono", monospace;
+      font-size: 0.7rem;
+      color: #f4c28a;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .print-header__center {
+      text-align: center;
+    }
+
+    .print-header__title {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.02em;
+    }
+
+    .print-header__tagline {
+      font-size: 0.78rem;
+      color: #f4c28a;
+      margin-top: 0.25rem;
+      font-style: italic;
+    }
+
+    .print-header__contact {
+      text-align: right;
+      font-family: "Space Mono", monospace;
+      font-size: 0.75rem;
+      color: #f4c28a;
+      line-height: 1.8;
+    }
+
+    /* Customer bar */
+    .print-customer-bar {
+      display: flex;
+      gap: 3rem;
+      padding: 1rem 2rem;
+      background: #fdf6ee;
+      border-bottom: 2px solid #c4621d;
+    }
+
+    .print-customer-field {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex: 1;
+    }
+
+    .print-customer-label {
+      font-family: "Space Mono", monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #7a3b10;
+      white-space: nowrap;
+    }
+
+    .print-customer-value {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1rem;
+      color: #1c1b19;
+      border-bottom: 1.5px solid #c4621d;
+      flex: 1;
+      padding: 0.1rem 0.2rem;
+    }
+
+    /* Schedule table */
+    #print-schedule-output {
+      padding: 1.5rem 2rem;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .print-table thead th {
+      background: #7a3b10;
+      color: white;
+      text-align: center;
+      padding: 0.6rem 0.75rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid #5c2e0a;
+      letter-spacing: 0.03em;
+    }
+
+    .print-table thead th:first-child {
+      text-align: left;
+      background: #5c2e0a;
+    }
+
+    .print-table tbody th {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      background: #fdf6ee;
+      border: 1px solid #e8d8c4;
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #7a3b10;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    .print-table td {
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #e8d8c4;
+      vertical-align: top;
+      background: white;
+    }
+
+    .print-table tbody tr:nth-child(even) td {
+      background: #fdf9f5;
+    }
+
+    .print-table ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .print-table li {
+      padding: 0.2rem 0 0.2rem 1rem;
+      position: relative;
+      font-family: "Space Mono", monospace;
+      font-size: 0.78rem;
+      color: #2c1a0a;
+      line-height: 1.4;
+    }
+
+    .print-table li:before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #c4621d;
+      font-size: 0.7rem;
+      top: 0.25rem;
+    }
+
+    /* Footer */
+    .print-footer {
+      text-align: center;
+      padding: 0.75rem 2rem;
+      background: #fdf6ee;
+      border-top: 2px solid #c4621d;
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      color: #7a3b10;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-page">
+
+    <header class="print-header">
+      <div class="print-header__logo-wrap">
+        <img src="logo.png" alt="House Hero" class="print-logo"
+          onerror="this.style.display='none'; document.getElementById('fb').style.display='flex'" />
+        <div id="fb" class="print-logo-fallback" style="display:none">
+          <span class="print-logo-h">H</span>
+          <div>
+            <div class="print-logo-name">House Hero</div>
+            <div class="print-logo-sub">LLC</div>
+          </div>
+        </div>
+      </div>
+      <div class="print-header__center">
+        <div class="print-header__title">Home Maintenance Schedule</div>
+        <div class="print-header__tagline">Your Partner for Worry-Free Home Maintenance</div>
+      </div>
+      <div class="print-header__contact">
+        <div>info@househeropa.com</div>
+        <div>(570) 301-6283</div>
+        <div>househeropa.com</div>
+      </div>
+    </header>
+
+    <div class="print-customer-bar">
+      <div class="print-customer-field">
+        <span class="print-customer-label">Prepared for:</span>
+        <span class="print-customer-value">John & Mary Smith</span>
+      </div>
+      <div class="print-customer-field">
+        <span class="print-customer-label">Address:</span>
+        <span class="print-customer-value">123 Maple Drive, Mountain Top, PA 18707</span>
+      </div>
+    </div>
+
+    <div id="print-schedule-output">
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Jan – Feb</th>
+            <th>Mar – Apr</th>
+            <th>May – Jun</th>
+            <th>Jul – Aug</th>
+            <th>Sep – Oct</th>
+            <th>Nov – Dec</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Appliance Maintenance</th>
+            <td><ul><li>Refrigerator Filter</li></ul></td>
+            <td><ul><li>Refrigerator Filter</li><li>Dishwasher Cleaning</li></ul></td>
+            <td><ul><li>Refrigerator Filter</li></ul></td>
+            <td><ul><li>Refrigerator Filter</li><li>Dryer Vent Cleaning</li></ul></td>
+            <td><ul><li>Refrigerator Filter</li><li>Stove Exhaust Filter</li></ul></td>
+            <td><ul><li>Refrigerator Filter</li></ul></td>
+          </tr>
+          <tr>
+            <th>HVAC</th>
+            <td><ul><li>Air Filter Furnace</li></ul></td>
+            <td><ul><li>Air Filter Furnace</li></ul></td>
+            <td><ul><li>Air Filter Furnace</li><li>AC Unit Check</li></ul></td>
+            <td><ul><li>Air Filter Furnace</li></ul></td>
+            <td><ul><li>Air Filter Furnace</li></ul></td>
+            <td><ul><li>Air Filter Furnace</li></ul></td>
+          </tr>
+          <tr>
+            <th>Home Safety</th>
+            <td></td>
+            <td><ul><li>Smoke-CO Detector Batteries</li></ul></td>
+            <td></td>
+            <td><ul><li>Garage Door Tune Up</li></ul></td>
+            <td><ul><li>Smoke-CO Detector Batteries</li><li>Basic Gutter Clearing</li></ul></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Plumbing</th>
+            <td><ul><li>Water Softener Salt</li></ul></td>
+            <td><ul><li>Water Softener Salt</li></ul></td>
+            <td><ul><li>Water Softener Salt</li><li>Whole House Water Filter</li></ul></td>
+            <td><ul><li>Water Softener Salt</li><li>Hot Water Heater Flush</li></ul></td>
+            <td><ul><li>Water Softener Salt</li></ul></td>
+            <td><ul><li>Water Softener Salt</li><li>Shower/Tub Descaling</li></ul></td>
+          </tr>
+          <tr>
+            <th>Seasonal</th>
+            <td></td>
+            <td><ul><li>Spring Prep</li></ul></td>
+            <td></td>
+            <td></td>
+            <td><ul><li>Fall Prep</li></ul></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Energy Efficiency</th>
+            <td><ul><li>Light Bulbs / Fan Switch</li></ul></td>
+            <td><ul><li>Light Bulbs / Fan Switch</li></ul></td>
+            <td><ul><li>Light Bulbs / Fan Switch</li><li>Thermal Imaging (AC)</li></ul></td>
+            <td><ul><li>Light Bulbs / Fan Switch</li></ul></td>
+            <td><ul><li>Light Bulbs / Fan Switch</li></ul></td>
+            <td><ul><li>Light Bulbs / Fan Switch</li><li>Thermal Imaging (Heat)</li><li>Exterior Door/Window</li></ul></td>
+          </tr>
+          <tr>
+            <th>Auto Maintenance</th>
+            <td></td>
+            <td></td>
+            <td><ul><li>Car Filters / Wipers</li></ul></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="print-footer">
+      House Hero LLC &nbsp;|&nbsp; PA Registered &amp; Insured &nbsp;|&nbsp; (570) 301-6283 &nbsp;|&nbsp; info@househeropa.com
+    </footer>
+
+  </div>
+
+</body>
+</html>
