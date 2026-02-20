@@ -189,10 +189,6 @@ button.ghost.danger {
 
 
 /* ── Print View ─────────────────────────────────────────── */
---brand-brown: #7a3b10;
---brand-orange: #c4621d;
---brand-light: #fdf6ee;
---brand-rule: #c4621d;
 
 .print-view {
   position: fixed;
