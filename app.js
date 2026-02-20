@@ -319,6 +319,15 @@ function buildScheduleTable({ periods, categories, limitMinutes, tasks }) {
   const table = document.createElement("table");
   table.className = "schedule-table";
 
+  // Calculate which periods are over the limit
+  const periodTotals = periods.map((period) => {
+    const total = period.taskIds
+      .map((id) => tasks.find((task) => task.id === id))
+      .filter(Boolean)
+      .reduce((sum, task) => sum + task.minutes, 0);
+    return { label: period.label, total, isOver: total > limitMinutes };
+  });
+
   const headerRow = `
     <tr>
       <th>Category</th>
@@ -330,7 +339,7 @@ function buildScheduleTable({ periods, categories, limitMinutes, tasks }) {
     .map((category) => {
       const categoryTasks = tasks.filter((task) => (task.category || "Uncategorized") === category);
       const cells = periods
-        .map((period) => {
+        .map((period, index) => {
           const items = categoryTasks
             .map((task) => {
               const checked = period.taskIds.includes(task.id) ? "checked" : "";
@@ -344,7 +353,8 @@ function buildScheduleTable({ periods, categories, limitMinutes, tasks }) {
             })
             .join("");
 
-          return `<td>${items || "<span>No tasks</span>"}</td>`;
+          const overClass = periodTotals[index].isOver ? " period-over-limit" : "";
+          return `<td class="${overClass}">${items || "<span>No tasks</span>"}</td>`;
         })
         .join("");
       return `

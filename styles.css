@@ -183,6 +183,10 @@ button.ghost.danger {
   color: #6d1a0a;
 }
 
+.period-over-limit {
+  background: #fbd0c0 !important;
+}
+
 
 @media (max-width: 920px) {
   .card__header {
