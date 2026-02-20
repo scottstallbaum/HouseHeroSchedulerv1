@@ -59,41 +59,59 @@
 
     <!-- Print View -->
     <div id="print-view" class="print-view" style="display: none;">
-      <div class="print-header">
-        <div class="print-branding">
-          <img src="logo.png" alt="House Hero" class="print-logo" onerror="this.style.display='none'; document.getElementById('print-logo-fallback').style.display='block'" />
-          <div id="print-logo-fallback" style="display:none">
-            <h1 class="print-company">House Hero LLC</h1>
-            <p class="print-tagline">Your Partner for Worry-Free Home Maintenance</p>
+
+      <div class="print-page">
+
+        <header class="print-header">
+          <div class="print-header__logo-wrap">
+            <img src="logo.png" alt="House Hero" class="print-logo"
+              onerror="this.style.display='none'; document.getElementById('print-logo-fallback').style.display='flex'" />
+            <div id="print-logo-fallback" class="print-logo-fallback" style="display:none">
+              <span class="print-logo-h">H</span>
+              <div>
+                <div class="print-logo-name">House Hero</div>
+                <div class="print-logo-sub">LLC</div>
+              </div>
+            </div>
+          </div>
+          <div class="print-header__center">
+            <div class="print-header__title">Home Maintenance Schedule</div>
+            <div class="print-header__tagline">Your Partner for Worry-Free Home Maintenance</div>
+          </div>
+          <div class="print-header__contact">
+            <div>info@househeropa.com</div>
+            <div>(570) 301-6283</div>
+            <div>househeropa.com</div>
+          </div>
+        </header>
+
+        <div class="print-customer-bar">
+          <div class="print-customer-field">
+            <span class="print-customer-label">Prepared for:</span>
+            <input id="print-customer-name" type="text" placeholder="Customer name" />
+          </div>
+          <div class="print-customer-field">
+            <span class="print-customer-label">Address:</span>
+            <input id="print-customer-address" type="text" placeholder="Customer address" />
           </div>
         </div>
-        <div class="print-contact">
-          <p>info@househeropa.com</p>
-          <p>(570) 301-6283</p>
-        </div>
-      </div>
-      
-      <div class="print-customer-info">
-        <div class="print-field">
-          <label>Customer Name:</label>
-          <input id="print-customer-name" type="text" placeholder="Enter customer name" />
-        </div>
-        <div class="print-field">
-          <label>Address:</label>
-          <input id="print-customer-address" type="text" placeholder="Enter customer address" />
-        </div>
-      </div>
 
-      <h2 class="print-schedule-title">Maintenance Schedule</h2>
-      <div id="print-schedule-output"></div>
+        <div id="print-schedule-output"></div>
+
+        <footer class="print-footer">
+          House Hero LLC &nbsp;|&nbsp; PA Registered &amp; Insured &nbsp;|&nbsp; (570) 301-6283 &nbsp;|&nbsp; info@househeropa.com
+        </footer>
+
+      </div>
 
       <div class="print-actions">
-        <p class="print-tip">💡 In the print dialog, go to <strong>More settings</strong> and uncheck <strong>"Headers and footers"</strong> to remove the browser URL and date.</p>
+        <p class="print-tip">💡 In the print dialog → <strong>More settings</strong> → uncheck <strong>"Headers and footers"</strong></p>
         <div class="print-action-btns">
-          <button id="print-btn" type="button">Print</button>
+          <button id="print-btn" type="button">Print / Save as PDF</button>
           <button id="close-print-btn" type="button" class="ghost">Cancel</button>
         </div>
       </div>
+
     </div>
 
     <script src="app.js"></script>
