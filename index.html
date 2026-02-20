@@ -19,6 +19,7 @@
               Minutes limit per visit
               <input id="time-limit" type="number" min="30" max="180" value="75" />
             </label>
+            <button id="print-schedule-btn" type="button">Print Schedule</button>
           </div>
         </div>
         <div id="plan-output" class="plan"></div>
@@ -55,6 +56,39 @@
         <div class="table" id="task-table"></div>
       </section>
     </main>
+
+    <!-- Print View -->
+    <div id="print-view" class="print-view" style="display: none;">
+      <div class="print-header">
+        <div class="print-branding">
+          <h1 class="print-company">House Hero LLC</h1>
+          <p class="print-tagline">Your Partner for Worry-Free Home Maintenance</p>
+        </div>
+        <div class="print-contact">
+          <p>info@househeropa.com</p>
+          <p>(570) 301-6283</p>
+        </div>
+      </div>
+      
+      <div class="print-customer-info">
+        <div class="print-field">
+          <label>Customer Name:</label>
+          <input id="print-customer-name" type="text" placeholder="Enter customer name" />
+        </div>
+        <div class="print-field">
+          <label>Address:</label>
+          <input id="print-customer-address" type="text" placeholder="Enter customer address" />
+        </div>
+      </div>
+
+      <h2 class="print-schedule-title">Maintenance Schedule</h2>
+      <div id="print-schedule-output"></div>
+
+      <div class="print-actions">
+        <button id="print-btn" type="button">Print</button>
+        <button id="close-print-btn" type="button" class="ghost">Cancel</button>
+      </div>
+    </div>
 
     <script src="app.js"></script>
   </body>

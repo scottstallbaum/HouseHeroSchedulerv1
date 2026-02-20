@@ -431,3 +431,83 @@ function escapeHtml(value) {
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
+
+// Print Schedule functionality
+const printScheduleBtn = document.getElementById("print-schedule-btn");
+const printView = document.getElementById("print-view");
+const printBtn = document.getElementById("print-btn");
+const closePrintBtn = document.getElementById("close-print-btn");
+const printScheduleOutput = document.getElementById("print-schedule-output");
+
+printScheduleBtn?.addEventListener("click", () => {
+  generatePrintView();
+  printView.style.display = "block";
+  document.body.style.overflow = "hidden";
+});
+
+closePrintBtn?.addEventListener("click", () => {
+  printView.style.display = "none";
+  document.body.style.overflow = "";
+});
+
+printBtn?.addEventListener("click", () => {
+  window.print();
+});
+
+function generatePrintView() {
+  const available = getAvailableTasks();
+  const periods = PERIODS.map((label) => ({
+    label,
+    taskIds: getScheduleIdsForPeriod(label),
+  }));
+
+  // Build schedule organized by period, then category
+  let html = "";
+
+  periods.forEach((period) => {
+    if (period.taskIds.length === 0) {
+      return; // Skip periods with no tasks
+    }
+
+    html += `<div class="print-period">`;
+    html += `<h3 class="print-period-title">${escapeHtml(period.label)}</h3>`;
+
+    // Get tasks for this period
+    const periodTasks = period.taskIds
+      .map((id) => available.find((task) => task.id === id))
+      .filter(Boolean);
+
+    // Group by category
+    const tasksByCategory = {};
+    periodTasks.forEach((task) => {
+      const cat = task.category || "Uncategorized";
+      if (!tasksByCategory[cat]) {
+        tasksByCategory[cat] = [];
+      }
+      tasksByCategory[cat].push(task);
+    });
+
+    // Render each category
+    FIXED_CATEGORIES.forEach((category) => {
+      if (tasksByCategory[category] && tasksByCategory[category].length > 0) {
+        html += `<div class="print-category">`;
+        html += `<h4 class="print-category-title">${escapeHtml(category)}</h4>`;
+        html += `<ul class="print-task-list">`;
+        tasksByCategory[category].forEach((task) => {
+          html += `<li>${escapeHtml(task.name)}</li>`;
+        });
+        html += `</ul>`;
+        html += `</div>`;
+      }
+    });
+
+    html += `</div>`;
+  });
+
+  if (html === "") {
+    html = "<p>No tasks scheduled yet. Please select tasks in the calendar view.</p>";
+  }
+
+  printScheduleOutput.innerHTML = html;
+}
+

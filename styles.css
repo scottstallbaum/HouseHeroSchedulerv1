@@ -188,6 +188,168 @@ button.ghost.danger {
 }
 
 
+/* Print View */
+.print-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.print-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.print-company {
+  font-size: 2rem;
+  margin: 0;
+  color: var(--accent);
+}
+
+.print-tagline {
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.print-contact {
+  text-align: right;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.print-contact p {
+  margin: 0.25rem 0;
+}
+
+.print-customer-info {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--card);
+  border-radius: 10px;
+}
+
+.print-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.print-field label {
+  font-weight: 600;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+}
+
+.print-field input {
+  padding: 0.6rem;
+  border: 1px solid var(--stroke);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.print-schedule-title {
+  margin: 2rem 0 1rem;
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.print-period {
+  margin-bottom: 2rem;
+  page-break-inside: avoid;
+}
+
+.print-period-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  padding: 0.5rem;
+  background: #efe4cf;
+  border-left: 4px solid var(--accent);
+}
+
+.print-category {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+.print-category-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-family: "Fraunces", "Georgia", serif;
+}
+
+.print-task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.print-task-list li {
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.print-task-list li:before {
+  content: "•";
+  position: absolute;
+  left: 0.5rem;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.print-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--stroke);
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .calendar {
+    display: none !important;
+  }
+
+  .print-view {
+    position: static;
+    padding: 0;
+  }
+
+  .print-actions {
+    display: none !important;
+  }
+
+  .print-field input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.25rem 0;
+  }
+}
+
 @media (max-width: 920px) {
   .card__header {
     flex-direction: column;
