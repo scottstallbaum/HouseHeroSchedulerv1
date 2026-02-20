@@ -1,0 +1,208 @@
+:root {
+  color-scheme: light;
+  --ink: #1c1b19;
+  --muted: #5b5b57;
+  --accent: #0f4c5c;
+  --accent-2: #efb810;
+  --card: #f7f3e9;
+  --panel: #ffffff;
+  --shadow: rgba(20, 20, 20, 0.12);
+  --stroke: #dad2c1;
+  --radius: 18px;
+  font-family: "Fraunces", "Georgia", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #f7efe1 0%, #f4f1e8 45%, #efe8dc 100%);
+  color: var(--ink);
+}
+
+.calendar {
+  padding: 2.5rem 6vw 4rem;
+}
+
+.card {
+  background: var(--card);
+  padding: 1.75rem;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px var(--shadow);
+  border: 1px solid var(--stroke);
+}
+
+.card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+input,
+select,
+button {
+  font: inherit;
+}
+
+input,
+select {
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--stroke);
+  background: var(--panel);
+}
+
+button {
+  background: var(--accent);
+  color: #fef8ee;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Space Mono", "Courier New", monospace;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px var(--shadow);
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+button.ghost.danger {
+  color: #8a1c0a;
+  border-color: #8a1c0a;
+}
+
+.settings {
+  display: grid;
+  gap: 0.8rem;
+  min-width: 220px;
+  align-items: end;
+  font-family: "Space Mono", "Courier New", monospace;
+}
+
+.task-row {
+  background: var(--panel);
+  display: grid;
+  gap: 1.2rem;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+}
+
+.schedule-table thead th {
+  text-align: left;
+  padding: 0.7rem;
+  background: #efe4cf;
+  border-bottom: 2px solid var(--stroke);
+}
+
+.schedule-table tbody th {
+  text-align: left;
+  padding: 0.7rem;
+  background: #f3eddc;
+  border-right: 1px solid var(--stroke);
+  font-family: "Fraunces", "Georgia", serif;
+}
+
+.schedule-table td {
+  padding: 0.7rem;
+  border: 1px solid var(--stroke);
+  vertical-align: top;
+  background: var(--panel);
+  min-width: 140px;
+}
+
+.schedule-table ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.schedule-table li {
+  margin-bottom: 0.35rem;
+}
+
+.schedule-choice {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.15rem 0;
+}
+
+.schedule-choice__name {
+  display: inline-block;
+}
+
+.schedule-choice__time {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  text-align: right;
+  min-width: 3.5rem;
+}
+
+.schedule-total {
+  background: #ffeab5;
+  font-weight: 600;
+}
+
+.schedule-total--over {
+  background: #fbd0c0;
+  color: #6d1a0a;
+}
+
+
+@media (max-width: 920px) {
+  .card__header {
+    flex-direction: column;
+  }
+
+  .task-row__actions {
+    justify-content: flex-start;
+  }
+
+  .schedule-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .task-row {
+    grid-template-columns: 1fr;
+  }
+
+  .task-row__actions {
+    justify-content: flex-start;
+  }
+}

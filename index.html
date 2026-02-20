@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Maintenance Scheduler</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="top">
+    <main class="calendar">
+      <section class="card">
+        <div class="card__header">
+          <div>
+            <h1>Annual maintenance calendar</h1>
+            <a class="library-link" href="#task-library">Edit task library</a>
+          </div>
+          <div class="settings">
+            <label>
+              Minutes limit per visit
+              <input id="time-limit" type="number" min="30" max="180" value="75" />
+            </label>
+          </div>
+        </div>
+        <div id="plan-output" class="plan"></div>
+      </section>
+
+      <section id="task-library" class="card">
+        <div class="card__header">
+          <h2>Task library</h2>
+          <a class="library-link" href="#top">Back to calendar</a>
+        </div>
+        <form id="task-form" class="form">
+          <label>
+            Task name
+            <input id="task-name" type="text" placeholder="Replace HVAC filter" required />
+          </label>
+          <label>
+            Minutes
+            <input id="task-minutes" type="number" min="1" max="180" placeholder="10" required />
+          </label>
+          <label>
+            Category
+            <select id="task-category" required></select>
+          </label>
+          <label>
+            Frequency
+            <select id="task-frequency">
+              <option value="every">Every visit</option>
+              <option value="annual">Annual</option>
+              <option value="adhoc">Ad hoc</option>
+            </select>
+          </label>
+          <button type="submit">Add task</button>
+        </form>
+        <div class="table" id="task-table"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
