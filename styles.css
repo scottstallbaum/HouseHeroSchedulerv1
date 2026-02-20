@@ -216,6 +216,12 @@ button.ghost.danger {
   color: var(--accent);
 }
 
+.print-logo {
+  max-height: 80px;
+  max-width: 250px;
+  object-fit: contain;
+}
+
 .print-tagline {
   font-size: 0.9rem;
   margin: 0.25rem 0 0;
@@ -380,9 +386,15 @@ button.ghost.danger {
   border-top: 2px solid var(--stroke);
 }
 
+@page {
+  margin: 0;
+  size: landscape;
+}
+
 @media print {
   body {
     background: white;
+    padding: 1.2cm 1.5cm;
   }
 
   .calendar {

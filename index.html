@@ -61,8 +61,11 @@
     <div id="print-view" class="print-view" style="display: none;">
       <div class="print-header">
         <div class="print-branding">
-          <h1 class="print-company">House Hero LLC</h1>
-          <p class="print-tagline">Your Partner for Worry-Free Home Maintenance</p>
+          <img src="logo.png" alt="House Hero" class="print-logo" onerror="this.style.display='none'; document.getElementById('print-logo-fallback').style.display='block'" />
+          <div id="print-logo-fallback" style="display:none">
+            <h1 class="print-company">House Hero LLC</h1>
+            <p class="print-tagline">Your Partner for Worry-Free Home Maintenance</p>
+          </div>
         </div>
         <div class="print-contact">
           <p>info@househeropa.com</p>
