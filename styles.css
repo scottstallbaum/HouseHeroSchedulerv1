@@ -267,6 +267,61 @@ button.ghost.danger {
   color: var(--accent);
 }
 
+.print-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+.print-table thead th {
+  text-align: left;
+  padding: 0.7rem;
+  background: var(--accent);
+  color: white;
+  border: 1px solid var(--accent);
+  font-weight: 600;
+}
+
+.print-table tbody th {
+  text-align: left;
+  padding: 0.7rem;
+  background: #efe4cf;
+  border: 1px solid var(--stroke);
+  font-family: "Fraunces", "Georgia", serif;
+  font-weight: 600;
+  color: var(--accent);
+  vertical-align: top;
+}
+
+.print-table td {
+  padding: 0.7rem;
+  border: 1px solid var(--stroke);
+  vertical-align: top;
+  background: white;
+}
+
+.print-table ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: none;
+}
+
+.print-table li {
+  margin-bottom: 0.4rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.print-table li:before {
+  content: "•";
+  position: absolute;
+  left: -0.5rem;
+  color: var(--accent);
+  font-weight: bold;
+}
+
 .print-period {
   margin-bottom: 2rem;
   page-break-inside: avoid;
